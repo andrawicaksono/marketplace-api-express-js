@@ -1,0 +1,26 @@
+{
+  "name": "marketplace-api-express-js",
+  "version": "1.0.0",
+  "description": "Simple marketplace API created with Express JS",
+  "main": "./src/server.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "start": "node ./src/server.js",
+    "dev": "nodemon ./src/server.js"
+  },
+  "repository": "git@github.com:andrawicaksono/marketplace-api-express-js.git",
+  "author": "Andra Wicaksono <andrawicaksono14@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.3",
+    "winston": "^3.8.2",
+    "winston-daily-rotate-file": "^4.7.1"
+  },
+  "devDependencies": {
+    "jest": "^29.3.1",
+    "superjest": "^0.1.0"
+  }
+}
