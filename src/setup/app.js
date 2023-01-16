@@ -2,6 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
 
+const { v1 } = require('../api/v1');
+const { db } = require('./db');
+
 module.exports.app = () => {
     const app = express();
 
@@ -12,7 +15,8 @@ module.exports.app = () => {
     app.use(express.json());
     app.use(express.urlencoded());
 
-    require('./api/v1')(app);
-    require('./db')();
+    v1(app);
+    db();
+
     return app;
 }

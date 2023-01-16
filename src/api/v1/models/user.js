@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const crypto = require('crypto')
 
 const { Schema } = mongoose
 
@@ -13,9 +14,12 @@ const userSchema = new Schema({
         unique: true
     },
 
-    password: {
-        type: String,
-        required: true
+    hash: {
+        type: String
+    },
+
+    salt: {
+        type: String
     },
 
     full_name: {
@@ -36,7 +40,7 @@ const userSchema = new Schema({
         default: 'buyer',
         enum: {
             values: ['buyer', 'admin'],
-            message: "{"
+            message: "{VALUE} is not supported"
         }
     },
 
@@ -55,5 +59,24 @@ const userSchema = new Schema({
         default: null
     }
 });
+
+const keyLength = 512;
+const iterations = 10000;
+const digest = "sha512";
+const encoding = "hex";
+
+userSchema.methods.setPassword = function (password) {
+    this.salt = crypto.randomBytes(16).toString("hex");
+    this.hash = crypto
+        .pbkdf2Sync(password, this.salt, iterations, keyLength, digest)
+        .toString(encoding);
+};
+
+userSchema.methods.validatePassword = function (password) {
+    const hash = crypto
+        .pbkdf2Sync(password, this.salt, iterations, keyLength, digest)
+        .toString(encoding);
+    return this.hash === hash;
+};
 
 module.exports.User = mongoose.model('user', userSchema);

@@ -1,4 +1,4 @@
-const { app } = require('./app');
+const { app } = require('./setup/app');
 
 try {
     const server = app();
