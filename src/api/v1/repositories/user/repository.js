@@ -15,7 +15,7 @@ module.exports.repository = (User) => {
             try {
                 const user = await User.findOne(data).exec();
 
-                if (!user) return [null, new Error('galat;401;003;User tidak ditemukan User is not found;')];
+                if (!user) return [null, new Error('galat;401;003;User tidak ditemukan;User is not found;')];
                 return [user, null];
             } catch (err) {
                 return [null, err];
